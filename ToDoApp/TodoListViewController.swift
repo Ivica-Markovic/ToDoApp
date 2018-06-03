@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let todoArray = ["first", "Second", "Third"]
+    var todoArray: [String] = ["First", "Second"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +33,59 @@ class TodoListViewController: UITableViewController {
     }
     
     //MARK: Tableview Delegate Method
-    //This is for Behaviour when the cell did get selected
-        //make sure the cell is deselected after being pressed
-    //set accessory to checkmark once pressed
-        //turn off if checkmark is already on 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+    }
+    
+    //MARK: Add New Items #237
     
     
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        print("buttonPressed")
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Todo", message: "Add a Todo", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            if textField.text == "" {
+                
+                alert.title = "NO ITEM ADDED!"
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                
+                self.todoArray.append(textField.text!)
+                self.tableView.reloadData()
+                
+            }
+            
+        }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            return
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new Todo"
+            textField = alertTextField
+        }
+        
+        alert.addAction(actionCancel)
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+
 }
 
