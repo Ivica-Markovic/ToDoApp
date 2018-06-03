@@ -74,7 +74,7 @@ class TodoListViewController: UITableViewController {
         }
         
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new Todo"
+            alertTextField.placeholder = "Create New Item"
             textField = alertTextField
         }
         
