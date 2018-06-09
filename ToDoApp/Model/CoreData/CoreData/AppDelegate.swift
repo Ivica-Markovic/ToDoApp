@@ -1,14 +1,13 @@
 //
 //  AppDelegate.swift
-//  ToDoApp
+//  CoreData
 //
-//  Created by Ivica Markovic on 1/6/18.
+//  Created by Ivica Markovic on 8/6/18.
 //  Copyright © 2018 Ivica Markovic. All rights reserved.
 //
 
 import UIKit
 import CoreData
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,15 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print("This is what gets lauched when as soon as the app finishes launching")
-        
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        print("This is when the applicaiton entered the background (applicationWillResignActive)")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -47,22 +43,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
-    
+
     // MARK: - Core Data stack
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "DataModel")
+        */
+        let container = NSPersistentContainer(name: "CoreData")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
+                 
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -76,9 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -92,5 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
 }
+
